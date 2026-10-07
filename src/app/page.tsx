@@ -7,14 +7,14 @@ export default function Home() {
   const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
   return (
     <>
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div aria-hidden className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full bg-spark/25 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-volt/20 blur-3xl" />
+      <section className="hero-zone relative overflow-hidden bg-hero text-white">
+        <div aria-hidden className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full bg-hero-blob/25 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-hero-blob/15 blur-3xl" />
         <div className="container-x relative grid items-center gap-10 py-20 lg:grid-cols-2 lg:py-28">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-spark">Career · HR · Talent · Organizations</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-hero-eyebrow">Career · HR · Talent · Organizations</p>
             <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">Connecting people, organizations and opportunity.</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90">
               Conductivity is a connected career and HR ecosystem — helping people grow, organizations perform, and the right talent meet the right opportunity.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

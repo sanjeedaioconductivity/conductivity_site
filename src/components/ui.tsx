@@ -2,15 +2,15 @@ import Link from "next/link";
 import { ImageIcon, ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import type { EventItem } from "@/data/site";
-
-export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {
+/** Page title band: short and red by default. Pass `compact={false}` / `red={false}` for the tall navy-style band. A newline character in the title forces a line break. */
+export function PageHero({ eyebrow, title, children, compact = true, red = true }: { eyebrow: string; title: string; children?: ReactNode; compact?: boolean; red?: boolean }) {
   return (
-    <section className="relative overflow-hidden bg-ink text-white">
-      <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-spark/20 blur-3xl" />
-      <div className="container-x relative py-16 sm:py-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-spark">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{title}</h1>
-        {children && <div className="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">{children}</div>}
+    <section className={`relative overflow-hidden text-white ${red ? "bg-spark" : "hero-zone bg-hero"}`}>
+      <div aria-hidden className={`pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full blur-3xl ${red ? "bg-white/15" : "bg-hero-blob/20"}`} />
+      <div className={`container-x relative ${compact ? "py-8 sm:py-10" : "py-16 sm:py-20"}`}>
+        <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${red ? "text-white/85" : "text-hero-eyebrow"}`}>{eyebrow}</p>
+        <h1 className={`mt-3 whitespace-pre-line font-bold leading-tight tracking-tight ${compact ? "text-2xl sm:text-4xl" : "max-w-3xl text-4xl sm:text-5xl"}`}>{title}</h1>
+        {children && <div className={`max-w-2xl leading-relaxed text-white/90 ${compact ? "mt-2 text-sm sm:text-base" : "mt-5 text-lg"}`}>{children}</div>}
       </div>
     </section>
   );
@@ -42,9 +42,9 @@ export function CtaBand({ title, text, primary, secondary }: { title: string; te
   return (
     <section className="section">
       <div className="container-x">
-        <div className="rounded-3xl bg-ink px-6 py-12 text-center text-white sm:px-12">
+        <div className="hero-zone rounded-3xl bg-hero px-6 py-12 text-center text-white sm:px-12">
           <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/75">{text}</p>
+          <p className="mx-auto mt-3 max-w-xl text-white/90">{text}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link href={primary.href} className="btn-primary">{primary.label}</Link>
             {secondary && <Link href={secondary.href} className="btn-ghost">{secondary.label}</Link>}

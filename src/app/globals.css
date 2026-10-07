@@ -2,14 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Palettes. Values are space-separated RGB so Tailwind can apply opacity.
+   Chosen with <html data-palette="…"> in layout.tsx (NEXT_PUBLIC_PALETTE). */
+:root,
+:root[data-palette="logo"] {            /* 1 · Logo Red + Blue — red hero, logo blue */
+  --ink: 20 24 31;   --ink-soft: 38 44 56;   --ink-mute: 94 102 114;
+  --spark: 229 50 45; --spark-dark: 184 33 29; --spark-light: 253 233 232;
+  --volt: 10 71 169;  --volt-light: 232 238 249;
+  --paper: 247 244 243;
+  --hero: 229 50 45;  --hero-eyebrow: 255 255 255; --hero-blob: 255 255 255;
+  --hero-btn-bg: 255 255 255; --hero-btn-fg: 184 33 29;
+  --brand: 10 71 169;
+}
+:root[data-palette="navy"] {            /* 2 · Navy Hero, Red Accent */
+  --ink: 14 26 51;   --ink-soft: 27 47 79;   --ink-mute: 91 107 133;
+  --spark: 229 50 45; --spark-dark: 184 33 29; --spark-light: 253 233 232;
+  --volt: 10 42 107;  --volt-light: 232 238 249;
+  --paper: 243 246 251;
+  --hero: 10 42 107;  --hero-eyebrow: 255 110 105; --hero-blob: 229 50 45;
+  --hero-btn-bg: 229 50 45; --hero-btn-fg: 255 255 255;
+  --brand: 10 42 107;
+}
+
 html { scroll-behavior: smooth; }
 body { @apply bg-white text-ink antialiased; }
 
 @layer components {
-  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .container-x { @apply mx-auto w-full max-w-none px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24; }
   .section { @apply py-16 sm:py-20; }
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2; }
-  .btn-primary { @apply btn bg-spark text-ink hover:bg-spark-dark hover:text-white focus-visible:outline-spark; }
+  .btn-primary { @apply btn bg-spark text-white hover:bg-spark-dark focus-visible:outline-spark; }
+  /* On a hero/CTA surface the accent button flips so it never vanishes into a red background. */
+  .hero-zone .btn-primary { background-color: rgb(var(--hero-btn-bg)); color: rgb(var(--hero-btn-fg)); outline-color: rgb(var(--hero-btn-bg)); }
+  .hero-zone .btn-primary:hover { background-color: rgb(var(--hero-btn-bg) / .9); color: rgb(var(--hero-btn-fg)); }
   .btn-dark { @apply btn bg-ink text-white hover:bg-ink-soft focus-visible:outline-ink; }
   .btn-ghost { @apply btn border border-white/30 text-white hover:bg-white/10 focus-visible:outline-white; }
   .btn-outline { @apply btn border border-ink/20 text-ink hover:bg-paper focus-visible:outline-ink; }
@@ -18,3 +43,8 @@ body { @apply bg-white text-ink antialiased; }
   .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-spark-dark; }
   .input { @apply w-full rounded-lg border border-ink/15 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-spark focus:ring-2 focus:ring-spark/30; }
 }
+
+/* Services ring: tiles sweep in from the centre one after another. */
+@keyframes seg-in { from { opacity: 0; transform: scale(.6) rotate(-14deg); } to { opacity: 1; transform: none; } }
+.seg-in { animation: seg-in .55s cubic-bezier(.2, .8, .2, 1) both; transform-box: view-box; }
+@media (prefers-reduced-motion: reduce) { .seg-in { animation: none; } }
