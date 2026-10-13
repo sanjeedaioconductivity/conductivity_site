@@ -1,43 +1,58 @@
 import Link from "next/link";
-import { ArrowRight, ArrowLeftRight } from "lucide-react";
+import { ArrowRight, ArrowLeftRight, Users, Network, Calculator, CircleHelp } from "lucide-react";
 import { EventCard, Photo, SectionHead } from "@/components/ui";
 import HowWeWork from "@/components/HowWeWork";
 import SanjeedaJourney from "@/components/SanjeedaJourney";
-import { events, facilities, insights, SANJEEDA_URL } from "@/data/site";
+import { events, facilities, insights } from "@/data/site";
 
 export default function Home() {
   const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
   return (
     <>
-      <section className="hero-zone relative overflow-hidden bg-hero text-white">
-        <div aria-hidden className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full bg-hero-blob/25 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-hero-blob/15 blur-3xl" />
-        <div className="container-x relative grid items-center gap-10 py-20 lg:grid-cols-2 lg:py-28">
+      <section className="relative overflow-hidden bg-white text-ink">
+        <div className="container-x relative grid items-center gap-10 py-8 lg:grid-cols-2 lg:py-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-hero-eyebrow">Career · HR · Talent · Organizations</p>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">Connecting people, organizations and opportunity.</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90">
-              Conductivity is a connected career and HR ecosystem — helping people grow, organizations perform, and the right talent meet the right opportunity.
+            <p className="text-lg font-bold tracking-tight text-ink sm:text-xl">
+              <span className="text-3xl font-black text-[#2860bb] sm:text-3xl" style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif' }}>
+              C<span className="text-[#FF0000]">σ</span>nductivity</span> </p>
+              <p className=" font-medium text-sm px-4">Consultancy (Pvt.) Ltd.</p>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.1] text-red-600 tracking-tight sm:text-5xl">Building Successful Businesses <span className="text-red-600">since 2005</span></h1>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed">
+              Conductivity Consultancy (Pvt.) Ltd. excel at understanding client requirement and delivering tailored solutions. We are known for our HR assessments (HR Audit), Organization Management solutions (governance), and Human Capital Services.
             </p>
+            <div className="mt-6 flex max-w-xl flex-col gap-4">
+              {[
+                { Icon: Users, title: "Human Resource Services", text: "You focus on your core business and we focus on your HR." },
+                { Icon: Network, title: "Organizational Structure", text: "We enable retention of knowledge, skills and abilities at organization level." },
+                { Icon: Calculator, title: "Accounts & Advisory", text: "For business leaders who want to obtain a fair insight in the system." },
+              ].map((s) => (
+                <div key={s.title} className="flex items-start gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF0000] text-white"><s.Icon size={18} aria-hidden /></span>
+                  <div><h3 className="text-base font-semibold text-[#2860bb]">{s.title}</h3>
+                  <p className="mt-0.5 text-xs text-ink-soft">{s.text}</p></div>
+                </div>
+              ))}
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/services" className="btn-primary">Explore Services</Link>
-              <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj">Explore Sanjeeda</a>
-              <Link href="/contact" className="btn-ghost">Contact Us</Link>
             </div>
           </div>
           <Photo label="Team & workspace hero image" className="aspect-[4/3] w-full" />
         </div>
       </section>
 
-      <section className="section bg-[#f5f5f5]">
-        <div className="container-x grid gap-10 lg:grid-cols-2">
+      <section className="section relative overflow-hidden !py-8 bg-[#f5f5f5]">
+        <CircleHelp aria-hidden strokeWidth={1.5} className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 text-[#2860bb]/10" />
+        <div className="container-x relative grid gap-10 lg:grid-cols-2">
           <div>
-            <p className="eyebrow">Who we are</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">More than recruitment. A connected system.</h2>
+            <h2 className="mt-14 text-3xl font-bold tracking-tight text-[#FF0000] underline decoration-[#212122] decoration-2 underline-offset-8 sm:text-4xl">WE ARE CONSULTANTS</h2>
           </div>
-          <p className="text-lg leading-relaxed text-ink-soft">
-            People bring capability and potential. Organizations create environments and requirements. Opportunities provide direction. Conductivity connects all three so they can produce better outcomes — through careers, HR, talent, training, organizational development and mobility.
-          </p>
+          <div>
+            <p className="pt-6 text-base leading-relaxed text-ink-soft">
+            <span aria-hidden className="inline-block w-0 overflow-visible align-baseline font-serif text-6xl font-black leading-[0] text-[#FF0000]">“</span>
+            Conductivity Consultancy (Pvt.) Ltd. has been offering professional outsourced consultation, career counselling and HR services to growing enterprises, companies, and technology firms for years not only in Pakistan but have served to international clients as well. We’re here to make sure your organization stays successful, productive, and safe. <span aria-hidden className="inline-block align-[-0.45em] font-serif text-6xl font-black leading-[0] text-[#FF0000]">”</span>
+            </p>
+          </div>
         </div>
       </section>
 
