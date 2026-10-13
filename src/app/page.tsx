@@ -1,56 +1,57 @@
 import Link from "next/link";
-import { ArrowRight, ArrowLeftRight } from "lucide-react";
-import { CtaBand, EventCard, Photo, SectionHead } from "@/components/ui";
-import { events, facilities, howWeWork, insights, journey, SANJEEDA_URL, serviceGroups } from "@/data/site";
+import { ArrowRight, ArrowLeftRight, Users, Network, Calculator, CircleHelp } from "lucide-react";
+import { EventCard, Photo, SectionHead } from "@/components/ui";
+import HowWeWork from "@/components/HowWeWork";
+import SanjeedaJourney from "@/components/SanjeedaJourney";
+import { events, facilities, insights } from "@/data/site";
 
 export default function Home() {
   const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
   return (
     <>
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div aria-hidden className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full bg-spark/25 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -right-10 bottom-0 h-72 w-72 rounded-full bg-volt/20 blur-3xl" />
-        <div className="container-x relative grid items-center gap-10 py-20 lg:grid-cols-2 lg:py-28">
+      <section className="relative overflow-hidden bg-white text-ink">
+        <div className="container-x relative grid items-center gap-10 py-8 lg:grid-cols-2 lg:py-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-spark">Career · HR · Talent · Organizations</p>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">Connecting people, organizations and opportunity.</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-              Conductivity is a connected career and HR ecosystem — helping people grow, organizations perform, and the right talent meet the right opportunity.
+            <p className="text-lg font-bold tracking-tight text-ink sm:text-xl">
+              <span className="text-3xl font-black text-[#2860bb] sm:text-3xl" style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif' }}>
+              C<span className="text-[#FF0000]">σ</span>nductivity</span> </p>
+              <p className=" font-medium text-sm px-4">Consultancy (Pvt.) Ltd.</p>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.1] text-red-600 tracking-tight sm:text-5xl">Building Successful Businesses <span className="text-red-600">since 2005</span></h1>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed">
+              Conductivity Consultancy (Pvt.) Ltd. excel at understanding client requirement and delivering tailored solutions. We are known for our HR assessments (HR Audit), Organization Management solutions (governance), and Human Capital Services.
             </p>
+            <div className="mt-6 flex max-w-xl flex-col gap-4">
+              {[
+                { Icon: Users, title: "Human Resource Services", text: "You focus on your core business and we focus on your HR." },
+                { Icon: Network, title: "Organizational Structure", text: "We enable retention of knowledge, skills and abilities at organization level." },
+                { Icon: Calculator, title: "Accounts & Advisory", text: "For business leaders who want to obtain a fair insight in the system." },
+              ].map((s) => (
+                <div key={s.title} className="flex items-start gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF0000] text-white"><s.Icon size={18} aria-hidden /></span>
+                  <div><h3 className="text-base font-semibold text-[#2860bb]">{s.title}</h3>
+                  <p className="mt-0.5 text-xs text-ink-soft">{s.text}</p></div>
+                </div>
+              ))}
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/services" className="btn-primary">Explore Services</Link>
-              <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj">Explore Sanjeeda</a>
-              <Link href="/contact" className="btn-ghost">Contact Us</Link>
             </div>
           </div>
           <Photo label="Team & workspace hero image" className="aspect-[4/3] w-full" />
         </div>
       </section>
 
-      <section className="section">
-        <div className="container-x grid gap-10 lg:grid-cols-2">
+      <section className="section relative overflow-hidden !py-8 bg-[#f5f5f5]">
+        <CircleHelp aria-hidden strokeWidth={1.5} className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 text-[#2860bb]/10" />
+        <div className="container-x relative grid gap-10 lg:grid-cols-2">
           <div>
-            <p className="eyebrow">Who we are</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">More than recruitment. A connected system.</h2>
+            <h2 className="mt-14 text-3xl font-bold tracking-tight text-[#FF0000] underline decoration-[#212122] decoration-2 underline-offset-8 sm:text-4xl">WE ARE CONSULTANTS</h2>
           </div>
-          <p className="text-lg leading-relaxed text-ink-soft">
-            People bring capability and potential. Organizations create environments and requirements. Opportunities provide direction. Conductivity connects all three so they can produce better outcomes — through careers, HR, talent, training, organizational development and mobility.
-          </p>
-        </div>
-      </section>
-
-      <section className="section bg-paper">
-        <div className="container-x">
-          <SectionHead eyebrow="What we do" title="Six service areas, one ecosystem" />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {serviceGroups.map((s) => (
-              <Link key={s.id} href={`/services#${s.id}`} className="card group transition hover:-translate-y-0.5">
-                <s.icon className="text-spark-dark" size={28} />
-                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-1.5 text-sm text-ink-mute">{s.blurb}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark group-hover:gap-2">Learn more <ArrowRight size={14} /></span>
-              </Link>
-            ))}
+          <div>
+            <p className="pt-6 text-base leading-relaxed text-ink-soft">
+            <span aria-hidden className="inline-block w-0 overflow-visible align-baseline font-serif text-6xl font-black leading-[0] text-[#FF0000]">“</span>
+            Conductivity Consultancy (Pvt.) Ltd. has been offering professional outsourced consultation, career counselling and HR services to growing enterprises, companies, and technology firms for years not only in Pakistan but have served to international clients as well. We’re here to make sure your organization stays successful, productive, and safe. <span aria-hidden className="inline-block align-[-0.45em] font-serif text-6xl font-black leading-[0] text-[#FF0000]">”</span>
+            </p>
           </div>
         </div>
       </section>
@@ -76,44 +77,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section bg-sanj-deep text-white">
-        <div className="container-x">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sanj-light">Sanjeeda · by Conductivity</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Become ready for the opportunities that matter.</h2>
-              <p className="mt-4 text-lg text-white/75">Sanjeeda is Conductivity&apos;s career-readiness platform — a guided journey from self-understanding to career growth.</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj">Explore Sanjeeda ↗</a>
-                <Link href="/sanjeeda" className="btn-ghost">How it works</Link>
-              </div>
-            </div>
-            <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {journey.map((j, i) => (
-                <li key={j.stage} className="rounded-xl bg-white/10 p-4">
-                  <span className="text-xs text-sanj-light">0{i + 1}</span>
-                  <p className="font-semibold">{j.stage}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+      <SanjeedaJourney />
 
-      <section className="section">
-        <div className="container-x">
-          <SectionHead eyebrow="How we work" title="Understand → Assess → Develop → Connect → Deliver" />
-          <ol className="grid gap-4 md:grid-cols-5">
-            {howWeWork.map((h, i) => (
-              <li key={h.step} className="card">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-spark-light text-sm font-bold text-spark-dark">{i + 1}</span>
-                <h3 className="mt-3 font-semibold">{h.step}</h3>
-                <p className="mt-1 text-sm text-ink-mute">{h.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <HowWeWork />
 
       <section className="section bg-paper">
         <div className="container-x">
@@ -155,7 +121,6 @@ export default function Home() {
         </div>
       </section>
 
-      <CtaBand title="Let's connect the right people and opportunities." text="Tell us what you need — a career plan, an HR project, a training program or a talent search." primary={{ label: "Contact Us", href: "/contact" }} secondary={{ label: "Explore Services", href: "/services" }} />
     </>
   );
 }

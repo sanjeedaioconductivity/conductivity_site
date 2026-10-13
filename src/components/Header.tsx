@@ -1,51 +1,61 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Zap } from "lucide-react";
 import { nav, SANJEEDA_URL } from "@/data/site";
 
 export function Logo({ light = false }: { light?: boolean }) {
+  // Full logo with "Consultancy (Pvt.) Ltd." On the dark footer it is flattened to white so it stays legible.
   return (
-    <span className="flex items-center gap-2 font-bold tracking-tight">
-      <span className="grid h-8 w-8 place-items-center rounded-lg bg-spark text-ink"><Zap size={18} strokeWidth={2.5} /></span>
-      <span className={light ? "text-white" : "text-ink"}>Conductivity</span>
-    </span>
+    <Image src="/conductivity-logo-v4.png" alt="Conductivity Consultancy (Pvt.) Ltd." width={200} height={100} priority
+      className={`w-auto ${light ? "h-16 brightness-0 invert" : "h-12"}`} />
   );
 }
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
   const path = usePathname();
+  const [open, setOpen] = useState(false);
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+  const linkClass = (href: string) =>
+    `${active(href) ? "text-spark-dark" : "text-ink-soft"} ${href === "/sanjeeda" ? "text-sanj" : ""}`;
 
+  // Wide screens: the links sit inline between the logo and the edge. Below lg they collapse into a
+  // hamburger that opens a dropdown under the logo bar.
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/90 backdrop-blur">
-      <div className="container-x flex h-16 items-center justify-between">
+      <div className="container-x flex items-center justify-between gap-x-4 py-2 lg:h-[70px] lg:py-0 lg:px-8 xl:px-12">
         <Link href="/" aria-label="Conductivity home" onClick={() => setOpen(false)}><Logo /></Link>
-        <nav className="hidden items-center gap-0.5 2xl:flex" aria-label="Main">
-          {nav.map((n) => (
-            <Link key={n.href} href={n.href}
-              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition hover:bg-paper ${active(n.href) ? "text-spark-dark" : "text-ink-soft"} ${n.href === "/sanjeeda" ? "text-sanj" : ""}`}>
-              {n.label}
-            </Link>
-          ))}
+
+        <nav className="hidden lg:block" aria-label="Main">
+          <div className="flex items-center gap-0 whitespace-nowrap">
+            {nav.map((n) => (
+              <Link key={n.href} href={n.href}
+                className={`rounded-full px-1.5 py-1.5 text-sm font-medium transition hover:bg-paper xl:px-2.5 ${linkClass(n.href)}`}>
+                {n.label}
+              </Link>
+            ))}
+          </div>
         </nav>
-        <div className="flex items-center gap-2">
-          <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj hidden whitespace-nowrap sm:inline-flex">Explore Sanjeeda</a>
-          <button className="rounded-lg p-2 2xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
-            {open ? <X /> : <Menu />}
-          </button>
-        </div>
+
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-nav"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-ink hover:bg-paper lg:hidden">
+          <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          </svg>
+        </button>
       </div>
+
       {open && (
-        <nav className="border-t border-ink/10 bg-white 2xl:hidden" aria-label="Mobile">
-          <div className="container-x flex flex-col py-3">
+        <nav id="mobile-nav" className="border-t border-ink/10 bg-white lg:hidden" aria-label="Main">
+          <div className="container-x flex flex-col py-2">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} onClick={() => setOpen(false)}
-                className={`rounded-lg px-3 py-2.5 text-base font-medium ${active(n.href) ? "bg-spark-light text-spark-dark" : "text-ink-soft"}`}>{n.label}</Link>
+                className={`rounded-lg px-2 py-3 text-base font-medium hover:bg-paper ${linkClass(n.href)}`}>
+                {n.label}
+              </Link>
             ))}
-            <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj mt-3">Explore Sanjeeda</a>
           </div>
         </nav>
       )}

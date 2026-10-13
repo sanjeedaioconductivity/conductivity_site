@@ -25,7 +25,6 @@ export const nav = [
   { label: "Events", href: "/events" },
   { label: "Facilities", href: "/facilities" },
   { label: "Inside Conductivity", href: "/inside-conductivity" },
-  { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
