@@ -17,15 +17,24 @@ export const contactInfo = {
   ],
 };
 
+// Main navigation from the website blueprint (§5.1). Everything else lives in the footer.
 export const nav = [
-  { label: "Home", href: "/" },
+  { label: "For Employers", href: "/employers" },
+  { label: "For Talent", href: "/talent" },
+  { label: "Our Model", href: "/our-model" },
+  { label: "Partners", href: "/partners" },
+  { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
+];
+
+// Pages that existed before the blueprint restructure; reachable from the footer.
+export const moreLinks = [
   { label: "Sanjeeda", href: "/sanjeeda" },
+  { label: "All Services", href: "/services" },
   { label: "Events", href: "/events" },
   { label: "Facilities", href: "/facilities" },
   { label: "Inside Conductivity", href: "/inside-conductivity" },
-  { label: "Careers", href: "/careers" },
+  { label: "Careers at Conductivity", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -78,7 +87,7 @@ export const journey = [
   { stage: "Discover", purpose: "Understand the individual", example: "Khudi assessment, personality and career direction" },
   { stage: "Prepare", purpose: "Build professional readiness", example: "3D CV, professional profile and skills" },
   { stage: "Guide", purpose: "Provide human guidance", example: "Mentoring and career counselling" },
-  { stage: "Evaluate", purpose: "Understand opportunities", example: "OfferGuide / offer evaluation" },
+  { stage: "Evaluate", purpose: "Understand Opportunities", example: "OfferGuide / offer evaluation" },
   { stage: "Connect", purpose: "Move toward opportunities", example: "Jobs, placement and career pathways" },
   { stage: "Grow", purpose: "Continue development", example: "Learning, mentoring and career progression" },
 ];

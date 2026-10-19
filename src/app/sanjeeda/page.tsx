@@ -3,14 +3,6 @@ import { journey, SANJEEDA_URL, sanjeedaTools } from "@/data/site";
 
 export const metadata: Metadata = { title: "Sanjeeda" };
 
-function Wordmark() {
-  return (
-    <span className="text-[1em] font-black tracking-normal text-[#2860bb]" style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif', fontWeight: 900 }}>
-      Sanjeed<span className="text-[#FF0000]">a!</span>
-    </span>
-  );
-}
-
 const toolIcons: Record<string, string> = {
   Khudi: "M9 3h6v4H9zM7 5H5v16h14V5h-2M9 14l2 2 4-4",
   "3D CV": "M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12v10M12 12L3 7",
@@ -24,31 +16,39 @@ export default function Sanjeeda() {
   return (
     <>
       <section className="relative overflow-hidden bg-white text-ink">
-        <span aria-hidden className="pointer-events-none absolute 
-        inset-0 flex items-center justify-start pl-[70%] select-none text-[16rem] 
-        font-black leading-none text-[#FF0000]/[0.69] sm:text-[20rem]" 
-        style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif' }}>a!
-        </span>
+        <div aria-hidden className="pointer-events-none absolute inset-0 flex select-none items-center justify-end pr-4 lg:pr-[8%]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/sanjeeda-icon.png" alt="" className="w-64 opacity-[0.69] sm:w-80 lg:w-[22rem]" />
+        </div>
         
         <div className="container-x relative grid items-center gap-12 py-16 sm:pb-2 sm:pt-10 lg:grid-cols-2">
           <div>
-          <h1 className="mt-3 flex flex-col gap-3 font-bold leading-tight tracking-tight sm:flex-row sm:items-center sm:gap-3">
-            <span className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl">
-              <Wordmark />
-            </span>
-            <span aria-hidden className="hidden h-24 w-0.5 lg:h-14 rounded bg-ink/40 sm:block" />
-            <span className="flex flex-col gap-1 leading-none">
-              <span className="text-xl sm:text-2xl lg:text-4xl xl:text-5xl font-black tracking-normal text-[#2860bb]"
-              style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif', fontWeight: 900 }}>
-              C<span className="text-[#FF0000]">σ</span>nductivity&apos;s
+          <h1 className="mt-3">
+            <span className="sr-only">Conductivity Career-Readiness Initiative: Sanjeeda!</span>
+            <span aria-hidden className="flex items-center gap-3 sm:gap-6">
+              <span className="flex flex-col items-center gap-0.5 sm:gap-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/sanjeeda-logo.png" alt="" 
+                   className="mr-1 h-8 w-36 shrink-0 object-contain 
+                   sm:h-12 
+                   sm:w-56 
+                   lg:h-12 
+                   lg:w-56 
+                   xl:h-12 
+                   xl:w-64" />
+                <span 
+                  className="mr-5 whitespace-nowrap font-sans text-[9px] -mt-2
+                  font-semibold leading-tight text-[#FF0000] sm:text-xs lg:text-sm xl:text-base">
+                  Career-Readiness Initiative
+                </span>
               </span>
-              <span className="self-start rounded-sm bg-[#FF0000] px-2 py-1 font-sans text-sm font-semibold text-white sm:text-lg lg:text-xl">Career-Readiness Initiative</span>
             </span>
           </h1>
-          <p className="mt-3 max-w-2xl text-lg text-ink-soft">
+          <p className="ml-3 mt-3  max-w-2xl text-sm text-ink-soft">
            helps individuals understand themselves, prepare professionally, navigate career opportunities and keep developing throughout their careers.
           </p>
-          <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="btn-sanj mt-4 bg-[#2860bb]">Explore Sanjeeda  ↗</a>
+          <a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" 
+          className="btn-sanj mt-4 ml-3 bg-[#fd0000]">Explore Sanjeeda </a>
           </div>
   
         </div>
@@ -58,21 +58,21 @@ export default function Sanjeeda() {
      
       </section>
 
-      <section className="section bg-paper">
-        <div className="container-x">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sanj">The Sanjeeda journey</p>
-          <h2 className="mb-12 mt-2 text-3xl font-bold tracking-tight">Six steps from discovery to growth.</h2>
+      <section className="section bg-paper !py-0">
+        <div className="container-x relative">
           <ol className="grid gap-0 lg:grid-cols-6">
             {journey.map((j, i) => (
-              <li key={j.stage} className="relative flex gap-4 pb-8 last:pb-0 lg:block lg:pb-0 lg:pr-4 lg:text-left">
-                {i < journey.length - 1 && (
-                  <span aria-hidden className="absolute left-5 top-10 h-full w-0.5 -translate-x-1/2 bg-[#FF0000]/25 lg:left-5 lg:top-5 lg:h-0.5 lg:w-full lg:translate-x-0 lg:-translate-y-1/2" />
-                )}
-                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF0000] text-sm font-bold text-white ring-4 ring-paper">{i + 1}</span>
-                <div className="lg:mt-4">
-                  <h3 className="text-lg font-bold text-[#2860bb]">{j.stage}</h3>
-                  <p className="mt-0.5 text-sm font-medium text-[#2860bb] lg:min-h-10">{j.purpose}</p>
-                  <p className="mt-1.5 text-sm font-medium text-[#FF0000]">{j.example}</p>
+              <li key={j.stage} className="relative flex h-24 items-center gap-3 overflow-hidden lg:block lg:h-48 lg:gap-0">
+                <span aria-hidden className="block w-20 shrink-0 text-center 
+                text-[8rem] font-black leading-[0.72] text-[#FF0000]/[0.06] 
+                lg:absolute lg:left-0 lg:top-3 lg:w-auto lg:text-left lg:text-[14rem]"
+                  style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif', WebkitTextStroke: '2px rgba(255,0,0,0.55)' }}>{i + 1}</span>
+                <div className="relative lg:absolute lg:left-6 lg:right-2 lg:top-16">
+                  <h3 className="text-lg font-black text-red-600 [text-shadow:0_0_6px_rgb(var(--paper)),0_0_2px_rgb(var(--paper))]">
+                    {j.stage}
+                  </h3>
+                  <p className="mt-2
+                   text-sm font-semibold leading-snug text-ink [text-shadow:0_0_6px_rgb(var(--paper)),0_0_2px_rgb(var(--paper))]">{j.purpose.split(" ").map((w) => (<span key={w} className="block">{w}</span>))}</p>
                 </div>
               </li>
             ))}

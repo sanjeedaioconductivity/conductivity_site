@@ -1,116 +1,187 @@
 import Link from "next/link";
-import { ArrowRight, ArrowLeftRight, Users, Network, Calculator, CircleHelp } from "lucide-react";
-import { EventCard, Photo, SectionHead } from "@/components/ui";
-import HowWeWork from "@/components/HowWeWork";
-import SanjeedaJourney from "@/components/SanjeedaJourney";
-import { events, facilities, insights } from "@/data/site";
+import { ArrowRight, ArrowDown, Building2, UserRound, Landmark, Check } from "lucide-react";
+import { Placeholder, SectionHead, StepChain } from "@/components/ui";
+import PipelineCycle from "@/components/PipelineCycle";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { category, ctas, differentiators, evidenceTypes, pathways, readinessSteps, solutions, tagline } from "@/data/blueprint";
+import { insights } from "@/data/site";
 
+// Homepage, following the ten sections of the website blueprint (§6).
 export default function Home() {
-  const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
+  // One article each for employers, careers and the future of work. TODO(content): replace the sample articles with real ones.
+  const featured = ["workforce-planning", "cv-mistakes", "skills-that-last"]
+    .map((slug) => insights.find((i) => i.slug === slug)!).filter(Boolean);
+
   return (
     <>
-      <section className="relative overflow-hidden bg-white text-ink">
-        <div className="container-x relative grid items-center gap-10 py-8 lg:grid-cols-2 lg:py-10">
+      {/* 1 — Hero */}
+      <section className="relative overflow-hidden bg-white">
+        <div aria-hidden className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-spark/10 blur-3xl" />
+        <div className="container-x relative grid items-center gap-12 py-12 lg:grid-cols-[1.15fr_1fr] lg:py-20">
           <div>
-            <p className="text-lg font-bold tracking-tight text-ink sm:text-xl">
-              <span className="text-3xl font-black text-[#2860bb] sm:text-3xl" style={{ fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif' }}>
-              C<span className="text-[#FF0000]">σ</span>nductivity</span> </p>
-              <p className=" font-medium text-sm px-4">Consultancy (Pvt.) Ltd.</p>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.1] text-red-600 tracking-tight sm:text-5xl">Building Successful Businesses <span className="text-red-600">since 2005</span></h1>
-            <p className="mt-5 max-w-xl text-sm leading-relaxed">
-              Conductivity Consultancy (Pvt.) Ltd. excel at understanding client requirement and delivering tailored solutions. We are known for our HR assessments (HR Audit), Organization Management solutions (governance), and Human Capital Services.
+            <p className="eyebrow">{category}</p>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
+              Talent Ready for Opportunity. <span className="text-spark">Organizations Ready for Talent.</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+              We connect the world of work with the world of talent. From understanding organizational needs to developing individual capabilities, Conductivity builds pipelines that help people become opportunity-ready and organizations become talent-ready.
             </p>
-            <div className="mt-6 flex max-w-xl flex-col gap-4">
-              {[
-                { Icon: Users, title: "Human Resource Services", text: "You focus on your core business and we focus on your HR." },
-                { Icon: Network, title: "Organizational Structure", text: "We enable retention of knowledge, skills and abilities at organization level." },
-                { Icon: Calculator, title: "Accounts & Advisory", text: "For business leaders who want to obtain a fair insight in the system." },
-              ].map((s) => (
-                <div key={s.title} className="flex items-start gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF0000] text-white"><s.Icon size={18} aria-hidden /></span>
-                  <div><h3 className="text-base font-semibold text-[#2860bb]">{s.title}</h3>
-                  <p className="mt-0.5 text-xs text-ink-soft">{s.text}</p></div>
-                </div>
-              ))}
-            </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/services" className="btn-primary">Explore Services</Link>
+              <Link href={ctas.employer.href} className="btn-primary">Build Your Talent Pipeline <ArrowRight size={16} /></Link>
+              <Link href={ctas.talent.href} className="btn-outline">Explore Your Career Path</Link>
             </div>
-          </div>
-          <Photo label="Team & workspace hero image" className="aspect-[4/3] w-full" />
-        </div>
-      </section>
-
-      <section className="section relative overflow-hidden !py-8 bg-[#f5f5f5]">
-        <CircleHelp aria-hidden strokeWidth={1.5} className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 text-[#2860bb]/10" />
-        <div className="container-x relative grid gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="mt-14 text-3xl font-bold tracking-tight text-[#FF0000] underline decoration-[#212122] decoration-2 underline-offset-8 sm:text-4xl">WE ARE CONSULTANTS</h2>
-          </div>
-          <div>
-            <p className="pt-6 text-base leading-relaxed text-ink-soft">
-            <span aria-hidden className="inline-block w-0 overflow-visible align-baseline font-serif text-6xl font-black leading-[0] text-[#FF0000]">“</span>
-            Conductivity Consultancy (Pvt.) Ltd. has been offering professional outsourced consultation, career counselling and HR services to growing enterprises, companies, and technology firms for years not only in Pakistan but have served to international clients as well. We’re here to make sure your organization stays successful, productive, and safe. <span aria-hidden className="inline-block align-[-0.45em] font-serif text-6xl font-black leading-[0] text-[#FF0000]">”</span>
+            <p className="mt-8 text-sm text-ink-mute">
+              Talent Intelligence · Career Readiness · Recruitment · Workforce Development · Global Opportunities
             </p>
           </div>
+
+          {/* The connection from §2.3: employer demand ↔ Conductivity ↔ individual potential. TODO(design): pair with authentic photography once available. */}
+          <div className="mx-auto w-full max-w-md">
+            <div className="card flex items-center gap-4">
+              <Building2 className="shrink-0 text-volt" aria-hidden />
+              <div><p className="text-xs font-bold uppercase tracking-wider text-volt">Employer demand</p><p className="text-sm text-ink-soft">Capability requirements</p></div>
+            </div>
+            <ArrowDown aria-hidden className="mx-auto my-2 text-spark" />
+            <div className="rounded-2xl bg-spark p-6 text-white shadow-card">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/80">Conductivity</p>
+              <p className="mt-1 font-semibold">Talent intelligence, readiness &amp; alignment</p>
+            </div>
+            <ArrowDown aria-hidden className="mx-auto my-2 rotate-180 text-spark" />
+            <div className="card flex items-center gap-4">
+              <UserRound className="shrink-0 text-spark-dark" aria-hidden />
+              <div><p className="text-xs font-bold uppercase tracking-wider text-spark-dark">Individual potential</p><p className="text-sm text-ink-soft">Competencies &amp; aspirations</p></div>
+            </div>
+            <p className="mt-5 text-center text-xs text-ink-mute">Opportunity matching → Deployment → Development → Talent continuity</p>
+          </div>
         </div>
       </section>
 
+      {/* 2 — Two sides, one purpose */}
+      <section className="section bg-paper">
+        <div className="container-x">
+          <SectionHead eyebrow="Two sides, one purpose" title="Talent Has Two Sides. We Work on Both." center />
+          <div className="grid gap-5 md:grid-cols-2">
+            {[
+              { who: "For organizations", head: "The talent you need. The capability your business demands.", text: "We help employers understand workforce requirements, develop pipelines, improve HR systems and access capable professionals.", cta: "Explore Employer Solutions", href: "/employers", Icon: Building2, tone: "text-volt" },
+              { who: "For individuals", head: "The career you imagine. The readiness it requires.", text: "We help people discover possibilities, understand employer expectations, develop relevant capabilities and pursue meaningful opportunities.", cta: "Explore Talent Solutions", href: "/talent", Icon: UserRound, tone: "text-spark-dark" },
+            ].map((p) => (
+              <div key={p.who} className="card flex flex-col !p-8">
+                <p.Icon className={p.tone} aria-hidden />
+                <p className={`mt-4 text-xs font-bold uppercase tracking-wider ${p.tone}`}>{p.who}</p>
+                <h3 className="mt-2 text-xl font-bold">{p.head}</h3>
+                <p className="mt-3 flex-1 text-ink-soft">{p.text}</p>
+                <Link href={p.href} className="mt-6 inline-flex items-center gap-1 font-semibold text-spark-dark hover:gap-2">{p.cta} <ArrowRight size={16} /></Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3 — The talent pipeline */}
       <section className="section">
         <div className="container-x">
-          <SectionHead eyebrow="Two sides, one ecosystem" title="People ↔ Organizations" center />
-          <div className="grid gap-5 md:grid-cols-2">
-            <div className="card">
-              <h3 className="text-xl font-semibold">For people</h3>
-              <p className="mt-2 text-ink-soft">Career counselling, assessment, CV and interview preparation, placement and international pathways.</p>
-              <Link href="/services#career" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark">Career services <ArrowRight size={14} /></Link>
-            </div>
-            <div className="card">
-              <h3 className="text-xl font-semibold">For organizations</h3>
-              <p className="mt-2 text-ink-soft">HR consulting, organizational development, tailored training and talent solutions that fit your requirements.</p>
-              <Link href="/services#hr" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark">HR &amp; talent services <ArrowRight size={14} /></Link>
-            </div>
-          </div>
-          <p className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-mute">
-            {["Careers ↔ HR", "Talent ↔ Opportunities", "Development ↔ Performance"].map((t) => (<span key={t} className="inline-flex items-center gap-1.5"><ArrowLeftRight size={14} />{t}</span>))}
-          </p>
+          <SectionHead eyebrow="The talent pipeline" title="We Do More Than Fill Vacancies."
+            text="Hiring is an event. Talent development is a process. A sustainable talent pipeline connects both." />
+          <PipelineCycle />
         </div>
       </section>
 
-      <SanjeedaJourney />
-
-      <HowWeWork />
-
+      {/* 4 — Solutions */}
       <section className="section bg-paper">
+        <div className="container-x">
+          <SectionHead eyebrow="Our solutions" title="Solutions Across the Talent Lifecycle" />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {solutions.map((s) => (
+              <Link key={s.title} href={s.href} className="card group flex flex-col transition hover:-translate-y-0.5">
+                <s.icon className="text-spark" aria-hidden />
+                <h3 className="mt-4 font-bold">{s.title}</h3>
+                <p className="mt-2 flex-1 text-sm text-ink-soft">{s.text}</p>
+                <p className="mt-4 flex items-center justify-between text-xs">
+                  <span className="rounded-full bg-volt-light px-2.5 py-0.5 font-semibold text-volt">{s.audience}</span>
+                  <ArrowRight size={16} className="text-spark-dark transition group-hover:translate-x-1" aria-hidden />
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Talent readiness */}
+      <section className="section">
+        <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div>
+            <p className="eyebrow">Talent readiness</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Potential Is Important. Readiness Makes the Difference.</h2>
+            <p className="mt-4 text-lg text-ink-soft">
+              We help individuals move from aspiration toward demonstrated workplace capability — understanding where they fit, building what employers value and showing evidence of it.
+            </p>
+            <Link href="/talent" className="btn-primary mt-6">Start Your Career Readiness Journey <ArrowRight size={16} /></Link>
+          </div>
+          <div className="space-y-6">
+            <div className="rounded-2xl bg-paper p-6"><StepChain steps={readinessSteps} /></div>
+            <Placeholder title="Active programs, talent cohorts and emerging pathways">
+              Add current readiness programs here once they are scheduled and open for registration.
+            </Placeholder>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Why Conductivity */}
+      <section className="section bg-ink text-white">
+        <div className="container-x">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">Why Conductivity?</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Because Talent Cannot Be Understood from One Side Alone.</h2>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {differentiators.map((d) => (
+              <div key={d.title} className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+                <Check className="text-spark" aria-hidden />
+                <h3 className="mt-3 font-bold">{d.title}</h3>
+                <p className="mt-2 text-sm text-white/75">{d.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7 — Talent pathways */}
+      <section className="section">
+        <div className="container-x">
+          <SectionHead eyebrow="Talent pathways" title="Building Talent Pipelines for the Work That Matters." />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {pathways.map((p) => (
+              <li key={p.title} className="card flex flex-col justify-between gap-4 !p-5">
+                <h3 className="font-semibold">{p.title}</h3>
+                {!p.active && <span className="w-fit rounded-full border border-dashed border-amber-400 bg-amber-50 px-2.5 py-0.5 text-[11px] font-semibold text-amber-900">Placeholder · status to be confirmed</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 8 — Impact & evidence. No statistics until they are verified. */}
+      <section className="section bg-paper">
+        <div className="container-x">
+          <SectionHead eyebrow="Impact & evidence" title="From Talent Potential to Organizational Value." />
+          <Placeholder title="Verified stories and evidence go here">
+            <p>Each slot below needs a documented, approved example before launch. Do not add impact statistics until the underlying data is verified.</p>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {evidenceTypes.map((e) => <li key={e} className="rounded-lg bg-white/70 px-3 py-2">{e}</li>)}
+            </ul>
+          </Placeholder>
+        </div>
+      </section>
+
+      {/* 9 — Knowledge & insights */}
+      <section className="section">
         <div className="container-x">
           <div className="flex items-end justify-between gap-4">
-            <SectionHead eyebrow="Latest events" title="What's happening" />
-            <Link href="/events" className="btn-outline mb-10 hidden sm:inline-flex">All events</Link>
+            <SectionHead eyebrow="Knowledge & insights" title="Understanding Talent. Anticipating Work." />
+            <Link href="/insights" className="btn-outline mb-10 hidden sm:inline-flex">All insights</Link>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">{upcoming.map((e) => <EventCard key={e.slug} e={e} />)}</div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container-x grid items-center gap-10 lg:grid-cols-2">
-          <div className="grid grid-cols-2 gap-3">
-            <Photo label="Training room" className="aspect-square" />
-            <Photo label="Counselling space" className="aspect-square translate-y-6" />
-          </div>
-          <div>
-            <p className="eyebrow">Facilities</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Spaces built for learning and conversation</h2>
-            <p className="mt-3 text-lg text-ink-mute">{facilities.slice(0, 4).map((f) => f.title).join(" · ")}</p>
-            <Link href="/facilities" className="btn-dark mt-6">See our spaces</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-paper">
-        <div className="container-x">
-          <SectionHead eyebrow="Insights" title="Latest knowledge" />
           <div className="grid gap-5 md:grid-cols-3">
-            {insights.slice(0, 3).map((i) => (
+            {featured.map((i) => (
               <Link key={i.slug} href="/insights" className="card transition hover:-translate-y-0.5">
                 <span className="text-xs font-semibold text-spark-dark">{i.category}</span>
                 <h3 className="mt-2 font-semibold">{i.title}</h3>
@@ -118,9 +189,36 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          <p className="mt-3 text-xs text-amber-800">Placeholder: sample articles — replace with original published insights.</p>
+          <div className="mt-10 rounded-2xl bg-paper p-6 sm:p-8">
+            <h3 className="text-lg font-bold">Get insights for your side of the talent equation</h3>
+            <p className="mb-4 mt-1 text-sm text-ink-mute">Choose what you are, and we&apos;ll send what is relevant to you.</p>
+            <NewsletterSignup />
+          </div>
         </div>
       </section>
 
+      {/* 10 — Final conversion */}
+      <section className="relative overflow-hidden bg-spark py-16 text-white sm:py-20">
+        <div className="container-x relative">
+          <h2 className="max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">A Stronger Talent Future Starts with Better Connections.</h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {[
+              { who: "For employers", text: "Tell us what talent your business needs.", ...ctas.employer, Icon: Building2 },
+              { who: "For individuals", text: "Discover how to build your readiness for opportunity.", ...ctas.talent, Icon: UserRound },
+              { who: "For partners", text: "Explore how we can develop talent together.", ...ctas.partner, Icon: Landmark },
+            ].map((c) => (
+              <Link key={c.who} href={c.href} className="group rounded-2xl bg-white p-6 text-ink shadow-card transition hover:-translate-y-0.5">
+                <c.Icon className="text-spark" aria-hidden />
+                <p className="mt-3 text-xs font-bold uppercase tracking-wider text-spark-dark">{c.who}</p>
+                <p className="mt-1 font-semibold">{c.text}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark group-hover:gap-2">{c.label} <ArrowRight size={14} /></span>
+              </Link>
+            ))}
+          </div>
+          <p className="mt-10 text-sm font-semibold uppercase tracking-[0.25em] text-white/85">{tagline}</p>
+        </div>
+      </section>
     </>
   );
 }

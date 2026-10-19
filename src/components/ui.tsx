@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ImageIcon, ArrowRight } from "lucide-react";
+import { ImageIcon, ArrowRight, Construction } from "lucide-react";
 import type { ReactNode } from "react";
 import type { EventItem } from "@/data/site";
 /** The word "Conductivity" in the logo's colours: blue letters and the red σ. `chip` puts it on a small white tag so it stays readable on a red band. */
@@ -94,5 +94,34 @@ export function EventCard({ e }: { e: EventItem }) {
         <Link href="/contact" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark hover:gap-2">View Event <ArrowRight size={14} /></Link>
       </div>
     </article>
+  );
+}
+
+/** Marks content that cannot be built yet (needs real data, approvals or a backend). Remove each one as the real thing arrives. */
+export function Placeholder({ title, children, className = "" }: { title: string; children?: ReactNode; className?: string }) {
+  return (
+    <div className={`rounded-2xl border-2 border-dashed border-amber-400 bg-amber-50 p-5 text-amber-900 ${className}`}>
+      <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
+        <Construction size={14} aria-hidden /> Placeholder
+      </p>
+      <p className="mt-1 font-semibold">{title}</p>
+      {children && <div className="mt-1 text-sm text-amber-800">{children}</div>}
+    </div>
+  );
+}
+
+/** A left-to-right chain of short steps joined by arrows; wraps on small screens. */
+export function StepChain({ steps }: { steps: string[] }) {
+  return (
+    <ol className="flex flex-wrap items-center gap-2">
+      {steps.map((s, i) => (
+        <li key={s} className="flex items-center gap-2">
+          <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-card ring-1 ring-ink/5">
+            <span className="mr-1.5 text-spark">{i + 1}</span>{s}
+          </span>
+          {i < steps.length - 1 && <ArrowRight size={16} aria-hidden className="text-spark" />}
+        </li>
+      ))}
+    </ol>
   );
 }

@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { nav, SANJEEDA_URL } from "@/data/site";
+import { nav } from "@/data/site";
+import { ctas } from "@/data/blueprint";
 
 export function Logo({ light = false }: { light?: boolean }) {
   // Full logo with "Consultancy (Pvt.) Ltd." On the dark footer it is flattened to white so it stays legible.
@@ -17,11 +18,10 @@ export default function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
-  const linkClass = (href: string) =>
-    `${active(href) ? "text-spark-dark" : "text-ink-soft"} ${href === "/sanjeeda" ? "text-sanj" : ""}`;
+  const linkClass = (href: string) => (active(href) ? "text-spark-dark" : "text-ink-soft");
 
-  // Wide screens: the links sit inline between the logo and the edge. Below lg they collapse into a
-  // hamburger that opens a dropdown under the logo bar.
+  // Wide screens: the links sit inline between the logo and the two permanent calls to action (blueprint §5.1).
+  // Below lg they collapse into a hamburger that opens a dropdown under the logo bar.
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/90 backdrop-blur">
       <div className="container-x flex items-center justify-between gap-x-4 py-2 lg:h-[70px] lg:py-0 lg:px-8 xl:px-12">
@@ -31,12 +31,17 @@ export default function Header() {
           <div className="flex items-center gap-0 whitespace-nowrap">
             {nav.map((n) => (
               <Link key={n.href} href={n.href}
-                className={`rounded-full px-1.5 py-1.5 text-sm font-medium transition hover:bg-paper xl:px-2.5 ${linkClass(n.href)}`}>
+                className={`rounded-full px-3 py-1.5 text-sm font-medium transition hover:bg-paper ${linkClass(n.href)}`}>
                 {n.label}
               </Link>
             ))}
           </div>
         </nav>
+
+        <div className="hidden items-center gap-2 whitespace-nowrap xl:flex">
+          <Link href={ctas.talent.href} className="btn-outline !px-4 !py-2">{ctas.talent.label}</Link>
+          <Link href={ctas.employer.href} className="btn-primary !px-4 !py-2">{ctas.employer.label}</Link>
+        </div>
 
         <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -56,6 +61,10 @@ export default function Header() {
                 {n.label}
               </Link>
             ))}
+            <div className="mt-2 flex flex-col gap-2 border-t border-ink/10 pb-2 pt-4 sm:flex-row">
+              <Link href={ctas.employer.href} onClick={() => setOpen(false)} className="btn-primary">{ctas.employer.label}</Link>
+              <Link href={ctas.talent.href} onClick={() => setOpen(false)} className="btn-outline">{ctas.talent.label}</Link>
+            </div>
           </div>
         </nav>
       )}

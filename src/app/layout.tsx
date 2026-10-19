@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 const sans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Conductivity — Career, HR & Talent Ecosystem", template: "%s | Conductivity" },
-  description: "Conductivity connects people, organizations, opportunities and capabilities so they can produce better outcomes.",
+  title: { default: "Conductivity — The Talent Pipeline Company", template: "%s | Conductivity" },
+  description: "Conductivity builds and sustains talent pipelines by connecting organizational talent needs with individual career readiness, professional capability and meaningful opportunities.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
