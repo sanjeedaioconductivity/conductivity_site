@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero, Placeholder, SectionHead } from "@/components/ui";
 import InquiryForm from "@/components/InquiryForm";
-import { partnerTypes } from "@/data/blueprint";
+import { partnerHref, partnerTypes } from "@/data/blueprint";
 
 export const metadata: Metadata = {
   title: "Partners",
@@ -24,11 +24,12 @@ export default function PartnersPage() {
           <SectionHead eyebrow="Who we partner with" title="Four kinds of partnership" />
           <div className="grid gap-5 md:grid-cols-2">
             {partnerTypes.map((p) => (
-              <article key={p.id} id={p.id} className="card scroll-mt-24 !p-8">
+              <Link key={p.id} id={p.id} href={partnerHref(p.id)} className="card group flex scroll-mt-24 flex-col !p-8 transition hover:-translate-y-0.5">
                 <p.icon className="text-spark" aria-hidden />
                 <h3 className="mt-4 text-xl font-bold">{p.title}</h3>
-                <p className="mt-2 text-ink-soft">{p.text}</p>
-              </article>
+                <p className="mt-2 flex-1 text-ink-soft">{p.text}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark group-hover:gap-2">Learn more <ArrowRight size={14} /></span>
+              </Link>
             ))}
           </div>
         </div>

@@ -107,7 +107,7 @@ export default function InquiryForm({ kind, interest = "" }: { kind: Kind; inter
         {text("name", "Full name", { required: true, auto: "name" })}
         {text("organization", "Organization / institution", { required: true, auto: "organization" })}
         {text("email", "Email", { required: true, type: "email", auto: "email" })}
-        {select("type", "Type of partner", [...partnerTypes.map((p) => p.title), "Other"])}
+        {select("type", "Type of partner", [...partnerTypes.map((p) => p.title), "Other"], false, interest)}
         {area("objective", "Partnership objective", true)}
         {text("target", "Target group (e.g. final-year students, finance professionals)", { wide: true })}
         {area("outcomes", "Expected outcomes")}

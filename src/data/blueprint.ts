@@ -305,3 +305,40 @@ export const legalPages = [
 /** The sub-page that covers an employer solution, e.g. "talent-acquisition" → "/employers/recruitment". */
 export const employerHref = (solutionId: string) =>
   `/employers/${employerPages.find((p) => p.solutions.includes(solutionId))?.slug ?? ""}`;
+
+// Partner sub-pages from the sitemap (§5.2 E). `types` refers to partnerTypes ids. Content from §4.3 and §9.
+export type PartnerPage = {
+  slug: string; title: string; headline: string; intro: string; description: string;
+  types: string[]; who: string[]; outcomes: string[]; related?: { label: string; href: string };
+};
+
+export const partnerPages: PartnerPage[] = [
+  { slug: "institutions", title: "Institutions & Universities",
+    headline: "Prepare Students for the Work That Exists",
+    intro: "We work with universities, colleges and training institutions to build career readiness that matches what employers actually need — and to connect students with those employers.",
+    description: "Career readiness and employability partnerships for universities and training institutions: assessments, industry exposure, internships and employer pipelines.",
+    types: ["institutions"],
+    who: ["Universities and colleges", "Training institutions", "Professional bodies"],
+    outcomes: ["Students who understand their career direction", "Readiness built against real employer requirements", "Internships and first roles through employer engagement"],
+    related: { label: "Career readiness for students", href: "/talent/readiness" } },
+  { slug: "industry", title: "Industry & Professional Partners",
+    headline: "Build the Talent Your Sector Needs, Together",
+    intro: "Employers, industry associations and experienced professionals can achieve together what no single organization can: shared competency standards, pooled development and a steady supply of ready talent.",
+    description: "Partnerships with employers, industry associations, trainers, mentors and subject-matter experts to develop sector-specific talent pipelines.",
+    types: ["industry", "mentors"],
+    who: ["Employers and industry associations", "Trainers and subject-matter experts", "Mentors and experienced professionals"],
+    outcomes: ["Clear competencies for the sector's key roles", "Readiness programs designed with industry", "Mentoring and assessment from people who do the work"],
+    related: { label: "Talent Pipeline Development for employers", href: "/employers/talent-pipelines" } },
+  { slug: "international", title: "International Talent Partnerships",
+    headline: "Access Pakistani Talent Through a Partner on the Ground",
+    intro: "International organizations and recruitment partners work with us to identify, prepare and connect capable Pakistani professionals — for assignments abroad, remote work and long-term talent supply.",
+    description: "International talent partnerships: access to Pakistani talent, recruitment partnerships, remote workforce development and mobility opportunities.",
+    types: ["international"],
+    who: ["International employers", "International recruitment partners", "Organizations building remote teams"],
+    outcomes: ["Access to prepared, assessed Pakistani professionals", "Remote workforce development", "Mobility opportunities where available"],
+    related: { label: "Global Talent Access & Mobility", href: "/employers/global-talent" } },
+];
+
+/** The sub-page that covers a partner type, e.g. "mentors" → "/partners/industry". */
+export const partnerHref = (typeId: string) =>
+  `/partners/${partnerPages.find((p) => p.types.includes(typeId))?.slug ?? ""}`;
