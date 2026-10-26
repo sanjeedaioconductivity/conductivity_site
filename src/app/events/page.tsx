@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import { CtaBand, EventCard, PageHero, SectionHead } from "@/components/ui";
-import { eventCategories, events } from "@/data/site";
+import { eventCategories } from "@/data/site";
+import { getEvents } from "@/lib/cms";
 
-export const metadata: Metadata = { title: "Events" };
+export const metadata: Metadata = pageMeta("/events", "Events", "Career events, workshops, webinars, university sessions and corporate programs from Conductivity.");
 
-export default function Events() {
+export const revalidate = 300; // re-check the CMS every 5 minutes
+
+export default async function Events() {
+  const events = await getEvents();
   return (
     <>
       <PageHero eyebrow="Events" title="Workshops, seminars and programs.">

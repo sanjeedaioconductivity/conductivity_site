@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import { CtaBand, PageHero, Photo } from "@/components/ui";
 import { facilities } from "@/data/site";
 
-export const metadata: Metadata = { title: "Facilities & Spaces" };
+export const metadata: Metadata = pageMeta("/facilities", "Facilities & Spaces", "Conductivity's training room, meeting room, counselling space and assessment environment, including spaces for hire.");
 
 export default function Facilities() {
   return (

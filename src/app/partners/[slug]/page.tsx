@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = partnerPages.find((p) => p.slug === slug);
-  return page ? { title: `${page.title} — Partners`, description: page.description } : {};
+  return page ? { title: `${page.title} — Partners`, description: page.description, alternates: { canonical: `/partners/${page.slug}` } } : {};
 }
 
 // How a partnership starts (blueprint §4.3, §9): inquiry, meeting, a joint initiative, then results reviewed.

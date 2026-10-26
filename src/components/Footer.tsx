@@ -31,7 +31,7 @@ export default function Footer() {
             <li><Link href="/talent" className={link}>Talent Overview</Link></li>
             {talentPages.map((p) => <li key={p.slug}><Link href={`/talent/${p.slug}`} className={link}>{p.title}</Link></li>)}
             <li><Link href="/opportunities" className={link}>Opportunities</Link></li>
-            <li><a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-sanj hover:text-sanj-dark">sanjeeda.io ↗</a></li>
+            <li><a href={SANJEEDA_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-sanj-dark hover:underline">sanjeeda.io ↗</a></li>
           </ul>
         </div>
         <div>
@@ -54,7 +54,8 @@ export default function Footer() {
         <div className="container-x flex flex-col items-center justify-between gap-2 sm:flex-row">
           <span>© {new Date().getFullYear()} Conductivity Consultancy (Pvt.) Ltd. All rights reserved.</span>
           <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1">
-            {legalPages.map((p) => <li key={p.slug}><Link href={`/legal/${p.slug}`} className="hover:underline">{p.title}</Link></li>)}
+            {legalPages.map((p) => <li key={p.slug}><Link href={`/legal/${p.slug}`} className="inline-block py-1.5 hover:underline">{p.title}</Link></li>)}
+            <li><Link href="/preferences" className="inline-block py-1.5 hover:underline">Preferences &amp; Data Requests</Link></li>
           </ul>
         </div>
       </div>

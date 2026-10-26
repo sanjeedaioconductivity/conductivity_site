@@ -20,7 +20,7 @@ export function withBrand(text: string, chip = false): ReactNode {
 /** The logo's red "o" (σ) as a faint white watermark for red backgrounds. Purely decorative. */
 export function SigmaMark({ className = "" }: { className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src="/sigma-white.png" alt="" aria-hidden width={512} height={512} className={`pointer-events-none absolute select-none ${className}`} />;
+  return <img src="/sigma-white.png" alt="" aria-hidden width={512} height={512} loading="lazy" decoding="async" className={`pointer-events-none absolute max-w-none select-none ${className}`} />;
 }
 
 /** Page title band: short and red by default. Pass `compact={false}` / `red={false}` for the tall navy-style band. A newline character in the title forces a line break. */

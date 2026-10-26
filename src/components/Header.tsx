@@ -4,14 +4,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { nav } from "@/data/site";
+import SiteSearch from "@/components/SiteSearch";
+import { insightAnchor, insightCategories, nav } from "@/data/site";
 import { ctas, employerPages, partnerPages, talentPages } from "@/data/blueprint";
 
 // Sub-pages shown under each main link (blueprint sitemap §5.2). Sections without an entry have no dropdown.
 const subNav: Record<string, { label: string; href: string }[]> = {
   "/employers": [{ label: "Employer Overview", href: "/employers" }, ...employerPages.map((p) => ({ label: p.title, href: `/employers/${p.slug}` }))],
   "/talent": [{ label: "Talent Overview", href: "/talent" }, ...talentPages.map((p) => ({ label: p.title, href: `/talent/${p.slug}` })), { label: "Opportunities", href: "/opportunities" }],
+  "/our-model": [
+    { label: "The Conductivity Talent Pipeline", href: "/our-model" },
+    { label: "Readiness, Opportunities & Success", href: "/our-model#tagline" },
+    { label: "Our Approach to Talent Intelligence", href: "/our-model#talent-intelligence" },
+  ],
   "/partners": [{ label: "Partners Overview", href: "/partners" }, ...partnerPages.map((p) => ({ label: p.title, href: `/partners/${p.slug}` })), { label: "Become a Partner", href: "/partners/become-a-partner" }],
+  "/insights": insightCategories.map((c) => ({ label: c, href: `/insights#${insightAnchor(c)}` })),
+  "/about": [
+    { label: "Our Philosophy", href: "/about#philosophy" },
+    { label: "Our Story", href: "/about#story" },
+    { label: "Leadership & Team", href: "/about#leadership" },
+    { label: "Impact and Client Stories", href: "/about#impact" },
+    { label: "Trust & Responsible Practices", href: "/trust" },
+    { label: "Contact", href: "/contact" },
+  ],
 };
 
 export function Logo({ light = false }: { light?: boolean }) {
@@ -64,18 +79,21 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-2 whitespace-nowrap xl:flex">
-          <Link href={ctas.talent.href} className="btn-outline !px-4 !py-2">{ctas.talent.label}</Link>
-          <Link href={ctas.employer.href} className="btn-primary !px-4 !py-2">{ctas.employer.label}</Link>
-        </div>
+        <div className="flex items-center gap-1 xl:gap-2">
+          <SiteSearch />
+          <div className="hidden items-center gap-2 whitespace-nowrap xl:flex">
+            <Link href={ctas.talent.href} className="btn-outline !px-4 !py-2">{ctas.talent.label}</Link>
+            <Link href={ctas.employer.href} className="btn-primary !px-4 !py-2">{ctas.employer.label}</Link>
+          </div>
 
-        <button type="button" onClick={() => (open ? close() : setOpen(true))} aria-expanded={open} aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="flex h-10 w-10 items-center justify-center rounded-lg text-ink hover:bg-paper lg:hidden">
-          <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-        </button>
+          <button type="button" onClick={() => (open ? close() : setOpen(true))} aria-expanded={open} aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-ink hover:bg-paper lg:hidden">
+            <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open && (

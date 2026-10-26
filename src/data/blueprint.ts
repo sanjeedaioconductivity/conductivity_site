@@ -10,6 +10,112 @@ import {
 export const tagline = "Readiness. Opportunities. Success.";
 export const category = "The Talent Pipeline Company";
 
+// Brand positioning (§1.2).
+export const brand = {
+  philosophy: "A True Talent Company",
+  positioning: "Conductivity builds and sustains talent pipelines by connecting organizational talent needs with individual career readiness, professional capability, and meaningful opportunities.",
+  promise: "We help organizations find and develop the talent they need, while helping people become the talent organizations need.",
+};
+
+// Target markets and visitor segmentation (§4). Each audience lists who it is and the actions we want them to take.
+export type Audience = {
+  id: "employers" | "talent" | "partners"; label: string; priority: "Primary" | "Secondary"; headline: string;
+  segments: string[]; conversions: { label: string; href: string }[]; href: string; cta: string;
+};
+export const audiences: Audience[] = [
+  { id: "employers", label: "Employers & organizations", priority: "Primary", headline: "I need talent or stronger people systems",
+    segments: [
+      "CEOs, founders and business owners", "CHROs, HR directors and HR business partners", "Talent acquisition and learning leaders",
+      "Business and functional heads", "International organizations seeking Pakistani talent", "Professional services firms requiring workforce capacity",
+      "Organizations seeking HR transformation or workforce advisory",
+    ],
+    conversions: [
+      { label: "Start a business conversation", href: "/employers#consultation" },
+      { label: "Share a talent requirement", href: "/employers/recruitment" },
+      { label: "Request a consultation", href: "/employers#diagnostic" },
+      { label: "Propose an engagement", href: "/employers/talent-pipelines" },
+    ],
+    href: "/employers", cta: "Explore employer solutions" },
+  { id: "talent", label: "Individuals & professionals", priority: "Primary", headline: "I want to build my career",
+    segments: [
+      "School and college students exploring careers", "University students and fresh graduates", "Early-career professionals",
+      "Experienced professionals seeking progression or transition", "Professionals seeking international work opportunities",
+      "People requiring career counselling, readiness or mentoring",
+    ],
+    conversions: [
+      { label: "Register your talent", href: "/talent#start" },
+      { label: "Discover your career direction", href: "/talent/career-intelligence" },
+      { label: "Join a readiness program", href: "/talent/readiness" },
+      { label: "Ask about counselling", href: "/talent/career-intelligence" },
+      { label: "Apply to an opportunity", href: "/opportunities" },
+    ],
+    href: "/talent", cta: "Explore talent solutions" },
+  { id: "partners", label: "Institutions & partners", priority: "Secondary", headline: "I want to develop talent together",
+    segments: [
+      "Universities", "Training institutions", "Professional bodies", "International recruitment partners",
+      "Industry associations", "Mentors", "Organizations developing sector-specific talent",
+    ],
+    conversions: [
+      { label: "Send a partnership inquiry", href: "/partners#partner-form" },
+      { label: "Request an institutional meeting", href: "/partners/institutions" },
+      { label: "Start a talent development initiative", href: "/partners/industry" },
+      { label: "Propose a joint program", href: "/partners/become-a-partner" },
+    ],
+    href: "/partners", cta: "Explore partnerships" },
+];
+
+// One company, two sides of talent (§2).
+export const talentSides = {
+  client: {
+    label: "Client-side talent management",
+    audience: "Organizations that employ, manage, develop or require talent.",
+    questions: [
+      "What talent do we need to deliver our business strategy?",
+      "What competencies should different positions possess?",
+      "How can we identify suitable candidates?",
+      "How can we create reliable talent supply?",
+      "How do we develop and retain existing employees?",
+      "How do we strengthen our HR systems and workforce effectiveness?",
+      "How can we access Pakistani talent for international assignments?",
+    ],
+    responses: ["Workforce intelligence", "Organization development", "Talent acquisition", "HR advisory", "Training", "Mobility solutions"],
+    href: "/employers",
+  },
+  candidate: {
+    label: "Candidate-side talent management",
+    audience: "Individuals preparing for, entering, navigating or progressing through their careers.",
+    questions: [
+      "Who am I professionally?",
+      "What careers suit my capabilities and aspirations?",
+      "What does the market expect from me?",
+      "What skills or competencies am I missing?",
+      "How can I demonstrate my potential and competence?",
+      "How can I access meaningful work opportunities?",
+      "How do I remain professionally relevant?",
+    ],
+    responses: ["Career intelligence", "Counselling", "Assessments", "Mentoring", "Professional development", "Readiness programs", "Access to opportunities"],
+    href: "/talent",
+  },
+};
+// §2.3: where both sides connect, and the longer relationship around a hire.
+export const connectionPoint = {
+  employer: "Employer demand & capability requirements",
+  core: "Talent intelligence, readiness & alignment",
+  individual: "Individual potential, competencies & aspirations",
+};
+export const connectedJourney = ["Opportunity matching", "Deployment", "Development", "Talent continuity"];
+
+// The idea behind the website (§1.1).
+export const talentVerbs = ["Understands", "Develops", "Connects", "Deploys", "Sustains"];
+export const singleStageProviders = [
+  { who: "Recruitment businesses", does: "identify and place people" },
+  { who: "HR consultants", does: "strengthen organizational systems" },
+  { who: "Training institutions", does: "build knowledge and skills" },
+  { who: "Career counsellors", does: "advise individuals" },
+  { who: "Employment platforms", does: "advertise opportunities" },
+  { who: "Mobility providers", does: "facilitate access to international work" },
+];
+
 // The two permanent calls to action (§5.1).
 export const ctas = {
   employer: { label: "Build a Talent Pipeline", href: "/employers#consultation" },
@@ -166,6 +272,60 @@ export const diagnosticAreas = [
   "Talent availability", "Internal development opportunities", "Recruitment and retention challenges", "Priority actions",
 ];
 
+// Editorial themes (§11.1). Topics are planned articles, not yet published.
+export const editorialThemes: { letter: string; title: string; audience: string; topics: string[] }[] = [
+  { letter: "A", title: "Talent Demand Intelligence", audience: "Employers, HR leaders, business leaders", topics: [
+    "Why recruitment alone cannot solve talent shortages", "Workforce planning for growing businesses",
+    "Defining jobs through organizational value delivery", "Why job descriptions are insufficient without competency clarity",
+    "The hidden costs of poor talent alignment", "Building talent pipelines for professional services",
+    "Strategic HR for SMEs and growing organizations",
+  ] },
+  { letter: "B", title: "Career & Talent Readiness", audience: "Students, graduates and professionals", topics: [
+    "How to understand your career potential", "The difference between qualifications and employability",
+    "What employers actually evaluate in interviews", "Developing professional competence beyond a degree",
+    "Building a CV around evidence of capability", "Preparing for international professional assignments",
+    "Career progression through mentoring and experience",
+  ] },
+  { letter: "C", title: "Future of Work & Talent", audience: "Both employer and talent audiences", topics: [
+    "AI and its implications for workforce capability", "Human skills in an AI-enabled workplace",
+    "The future of remote professional services", "Career development in a changing labor market",
+    "Responsible AI in talent assessment", "Organization design and emerging technology",
+  ] },
+  { letter: "D", title: "The Talent Pipeline in Practice", audience: "Employers, candidates and institutions", topics: [
+    "How an employer capability gap becomes a talent program", "A candidate's journey from readiness to opportunity",
+    "Lessons from a completed talent development cohort", "How mentoring improves workplace preparedness",
+    "What successful onboarding teaches about recruitment", "Measuring effectiveness, efficiency and sustainability in talent delivery",
+  ] },
+];
+
+// Content formats (§11.2).
+export const contentFormats = [
+  "Articles and expert commentary", "Industry briefs and reports", "Career guides", "Employer guides and checklists",
+  "Case studies", "Downloadable resources", "Videos and interviews", "Event and program pages",
+  "Talent success stories", "Employer testimonials", "Newsletter archives",
+];
+
+// Conversion-oriented content (§11.3): each piece leads to a defined next step.
+export const conversionContent = [
+  { title: "Why Recruitment Is Not a Talent Strategy", audience: "Employers", next: "Request a Talent Pipeline Diagnostic", href: "/employers#diagnostic" },
+  { title: "Are You Ready for Your First Professional Role?", audience: "Graduates", next: "Explore Career Readiness", href: "/talent/readiness" },
+  { title: "Building Pakistani Talent for Global Clients", audience: "International employers", next: "Discuss Global Talent Requirements", href: "/employers/global-talent" },
+];
+
+// Talent Readiness Passport (§8.3): a future product. Each element is either self-reported or assessed / verified evidence.
+export const passportElements: { label: string; source: "self" | "verified" }[] = [
+  { label: "Career direction", source: "self" },
+  { label: "Education and qualifications", source: "self" },
+  { label: "Experience and project exposure", source: "self" },
+  { label: "Technical and professional skills", source: "self" },
+  { label: "Career preferences", source: "self" },
+  { label: "Assessed competencies", source: "verified" },
+  { label: "Training and learning achievements", source: "verified" },
+  { label: "Work samples and portfolio evidence", source: "verified" },
+  { label: "Mentoring milestones", source: "verified" },
+  { label: "Readiness for specific opportunity categories", source: "verified" },
+];
+
 // Talent landing page (§8.1).
 export const talentOfferings: { id: string; title: string; need: string; deliverable: string; icon: LucideIcon }[] = [
   { id: "career-intelligence", title: "Career Intelligence", icon: Compass, need: "Career direction", deliverable: "Career discovery and counselling" },
@@ -233,16 +393,26 @@ export const talentHref = (offeringId: string) => offeringId === "opportunities"
   : `/talent/${talentPages.find((p) => p.offerings.includes(offeringId))?.slug ?? ""}`;
 
 // Curated opportunities (§8.1, §12 Phase 2). Only genuine, current, verified openings; remove them when they expire.
-export type Opportunity = { title: string; type: "Vacancy" | "Project" | "Internship" | "Placement"; organization: string; location: string; closes: string; apply: string };
+export type Opportunity = {
+  title: string; type: "Vacancy" | "Project" | "Internship" | "Placement";
+  organization: string;
+  location: string;
+  posted: string;   // YYYY-MM-DD
+  closes: string;   // YYYY-MM-DD; listings disappear after this date
+  apply: string;    // link or email to apply
+  description: string;
+  employmentType?: "FULL_TIME" | "PART_TIME" | "CONTRACTOR" | "INTERN" | "TEMPORARY";
+  remote?: boolean;
+};
 export const opportunities: Opportunity[] = [];
 
 // Candidate engagement journey (§8.2).
 export const candidateJourney = [
-  { title: "Discover", text: "Tell us your career stage: exploring, preparing, looking, progressing or changing." },
-  { title: "Understand", text: "Share a little about your education, interests, experience and aspirations." },
-  { title: "Recommend", text: "We suggest relevant services, readiness programs, assessments or opportunities." },
-  { title: "Engage", text: "Join mentoring, a program, counselling, a talent community or apply for a role." },
-  { title: "Maintain continuity", text: "With your consent, we keep you informed of future development and opportunities." },
+  { title: "Discover", text: "Identify the career stage: exploring, preparing for employment, looking for opportunities, seeking progression or considering a change." },
+  { title: "Understand", text: "Collect limited initial information about education, interests, experience and aspirations." },
+  { title: "Recommend", text: "Suggest relevant services, readiness programs, assessments or opportunities." },
+  { title: "Engage", text: "Enable registration for mentoring, programs, counselling, a talent community or an actual vacancy." },
+  { title: "Maintain continuity", text: "With consent, share relevant updates and future development opportunities." },
 ];
 
 export const careerStages = [

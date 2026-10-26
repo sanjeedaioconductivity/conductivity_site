@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import Link from "next/link";
 import { PageHero } from "@/components/ui";
 import { openRoles } from "@/data/site";
 
-export const metadata: Metadata = { title: "Careers" };
+export const metadata: Metadata = pageMeta("/careers", "Careers", "Careers at Conductivity: join a team building talent pipelines, career readiness and HR capability in Pakistan.");
 
 export default function Careers() {
   return (

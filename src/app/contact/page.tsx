@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import { Mail, MapPin, Phone, Share2, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import ContactForm from "@/components/ContactForm";
 import { PageHero } from "@/components/ui";
 import { contactInfo } from "@/data/site";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = pageMeta("/contact", "Contact", "Contact Conductivity about talent pipelines, recruitment, HR consulting, career counselling, mentoring or partnerships.");
 
 /** One white info card: red icon, small uppercase title, details underneath. */
 function InfoCard({ icon: Icon, title, id, children }: { icon: LucideIcon; title: string; id?: string; children: ReactNode }) {

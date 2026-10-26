@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { PageHero } from "@/components/ui";
 import InquiryForm from "@/components/InquiryForm";
 import { partnerPages } from "@/data/blueprint";
 
-export const metadata: Metadata = {
-  title: "Become a Partner",
-  description: "Propose a talent partnership with Conductivity: the objective, target group, expected outcomes and your contribution.",
-};
+export const metadata: Metadata = pageMeta("/partners/become-a-partner", "Become a Partner", "Propose a talent partnership with Conductivity: the objective, target group, expected outcomes and your contribution.");
 
 // What a partnership proposal should cover (blueprint §9).
 const include = [

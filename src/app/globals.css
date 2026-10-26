@@ -7,7 +7,7 @@
 :root,
 :root[data-palette="logo"] {            /* 1 · Logo Red + Blue — red hero, logo blue */
   --ink: 20 24 31;   --ink-soft: 38 44 56;   --ink-mute: 94 102 114;
-  --spark: 229 50 45; --spark-dark: 184 33 29; --spark-light: 253 233 232;
+  --spark: 220 38 38; --spark-dark: 184 33 29; --spark-light: 253 233 232;
   --volt: 10 71 169;  --volt-light: 232 238 249;
   --paper: 247 244 243;
   --hero: 229 50 45;  --hero-eyebrow: 255 255 255; --hero-blob: 255 255 255;
@@ -16,7 +16,7 @@
 }
 :root[data-palette="navy"] {            /* 2 · Navy Hero, Red Accent */
   --ink: 14 26 51;   --ink-soft: 27 47 79;   --ink-mute: 91 107 133;
-  --spark: 229 50 45; --spark-dark: 184 33 29; --spark-light: 253 233 232;
+  --spark: 220 38 38; --spark-dark: 184 33 29; --spark-light: 253 233 232;
   --volt: 10 42 107;  --volt-light: 232 238 249;
   --paper: 243 246 251;
   --hero: 10 42 107;  --hero-eyebrow: 255 110 105; --hero-blob: 229 50 45;
@@ -26,6 +26,13 @@
 
 html { scroll-behavior: smooth; }
 body { @apply bg-white text-ink antialiased; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Accessibility (blueprint §15.4, WCAG 2.2 AA): a visible focus outline on everything reachable by keyboard. */
+:where(a, button, summary, [tabindex]:not([tabindex="-1"])):focus-visible { outline: 2px solid rgb(var(--volt)); outline-offset: 2px; border-radius: 4px; }
+/* "Skip to main content": hidden until a keyboard user tabs to it. */
+.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 60; border-radius: 0.5rem; background: rgb(var(--ink)); color: #fff; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; }
+.skip-link:focus { top: 0.75rem; }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-none px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24; }
@@ -38,7 +45,7 @@ body { @apply bg-white text-ink antialiased; }
   .btn-dark { @apply btn bg-ink text-white hover:bg-ink-soft focus-visible:outline-ink; }
   .btn-ghost { @apply btn border border-white/30 text-white hover:bg-white/10 focus-visible:outline-white; }
   .btn-outline { @apply btn border border-ink/20 text-ink hover:bg-paper focus-visible:outline-ink; }
-  .btn-sanj { @apply btn bg-sanj text-white hover:bg-sanj-dark focus-visible:outline-sanj; }
+  .btn-sanj { @apply btn bg-sanj-dark text-white hover:bg-sanj-deep focus-visible:outline-sanj; }
   .card { @apply rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink/5; }
   .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-spark-dark; }
   .input { @apply w-full rounded-lg border border-ink/15 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-spark focus:ring-2 focus:ring-spark/30; }
@@ -48,3 +55,32 @@ body { @apply bg-white text-ink antialiased; }
 @keyframes seg-in { from { opacity: 0; transform: scale(.6) rotate(-14deg); } to { opacity: 1; transform: none; } }
 .seg-in { animation: seg-in .55s cubic-bezier(.2, .8, .2, 1) both; transform-box: view-box; }
 @media (prefers-reduced-motion: reduce) { .seg-in { animation: none; } }
+
+/* Scroll reveal (components/Reveal.tsx): `.reveal` items rise in one after another, ordered by --i. */
+.reveal { opacity: 0; transform: translateY(24px); }
+[data-shown] .reveal { animation: reveal-up .7s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 160ms); }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+/* Connector arrows pop in after the card they follow, then keep nudging forward. */
+.reveal-pop { opacity: 0; }
+[data-shown] .reveal-pop { animation: reveal-pop .45s cubic-bezier(.3, 1.6, .5, 1) both, nudge 1.8s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 160ms + 450ms), calc(var(--i, 0) * 160ms + 900ms); }
+@keyframes reveal-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+@keyframes nudge { 0%, 100% { translate: 0 0; } 50% { translate: 4px 0; } }
+/* Icon tile lifts and tilts on card hover. */
+.icon-lift { transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.group:hover .icon-lift { transform: translateY(-3px) rotate(-8deg) scale(1.08); }
+/* Hero ecosystem (components/HeroEcosystem.tsx): light travels along the connections, the hub breathes, pipeline stages glow in turn. */
+.eco-flow { stroke-dasharray: 14 86; animation: eco-flow 2.4s linear infinite; }
+@keyframes eco-flow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.eco-pulse { animation: eco-pulse 2.8s ease-out infinite; }
+@keyframes eco-pulse { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.35); opacity: 0; } }
+.eco-step { position: relative; will-change: transform; animation: eco-step 2.5s ease-in-out infinite; }
+.eco-step::after { content: ""; position: absolute; inset: -6px; border-radius: 9999px; background: rgb(var(--spark) / .18); opacity: 0; animation: eco-ring 2.5s ease-in-out infinite; animation-delay: inherit; }
+/* Transform and opacity only, so the glow runs on the graphics card instead of restyling the page every frame. */
+@keyframes eco-step { 0%, 60%, 100% { transform: scale(1); } 20% { transform: scale(1.25); } }
+@keyframes eco-ring { 0%, 60%, 100% { opacity: 0; transform: scale(.6); } 20% { opacity: 1; transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-flow, .eco-pulse, .eco-step, .eco-step::after { animation: none; }
+  .reveal, .reveal-pop, [data-shown] .reveal, [data-shown] .reveal-pop { opacity: 1; transform: none; animation: none; }
+  .group:hover .icon-lift { transform: none; }
+}

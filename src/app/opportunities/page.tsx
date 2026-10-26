@@ -3,12 +3,29 @@ import Link from "next/link";
 import { ArrowRight, Briefcase, CheckCircle2 } from "lucide-react";
 import { PageHero, Placeholder, SectionHead } from "@/components/ui";
 import InquiryForm from "@/components/InquiryForm";
-import { opportunities } from "@/data/blueprint";
+import type { Opportunity } from "@/data/blueprint";
+import { getOpportunities } from "@/lib/cms";
+import { pageMeta, SITE_URL } from "@/data/seo";
 
-export const metadata: Metadata = {
-  title: "Opportunities",
-  description: "Verified vacancies, projects, internships and placement support from Conductivity's employer partners.",
-};
+// Hidden from search while empty: a page with no openings is "thin" (blueprint §14).
+export const revalidate = 300; // re-check the CMS every 5 minutes
+
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMeta("/opportunities", "Opportunities", "Professional career opportunities in Pakistan: verified vacancies, projects, internships and placement support from Conductivity's employer partners.", { noindex: (await getOpportunities()).length === 0 });
+}
+
+// Job-posting structured data, only for genuine, current, individual vacancies with a way to apply (§14).
+function jobPostingJsonLd(o: Opportunity) {
+  return {
+    "@context": "https://schema.org", "@type": "JobPosting",
+    title: o.title, description: o.description, datePosted: o.posted, validThrough: `${o.closes}T23:59:59`,
+    employmentType: o.employmentType,
+    hiringOrganization: { "@type": "Organization", name: o.organization },
+    ...(o.remote ? { jobLocationType: "TELECOMMUTE", applicantLocationRequirements: { "@type": "Country", name: "Pakistan" } }
+      : { jobLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: o.location, addressCountry: "PK" } } }),
+    directApply: false, url: `${SITE_URL}/opportunities`,
+  };
+}
 
 const commitments = [
   "Every opportunity listed is genuine, current and verified with the employer.",
@@ -18,9 +35,14 @@ const commitments = [
 ];
 
 // Opportunities (blueprint §5.2 C, §8.1, §14). The live listing arrives in Phase 2 (§12).
-export default function OpportunitiesPage() {
+export default async function OpportunitiesPage() {
+  const opportunities = await getOpportunities();
+  const vacancies = opportunities.filter((o) => o.type === "Vacancy" && o.apply && o.description);
   return (
     <>
+      {vacancies.map((o) => (
+        <script key={o.title + o.organization} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd(o)) }} />
+      ))}
       <PageHero eyebrow="For talent" title="Opportunities">
         Vacancies, projects, internships and placement support — for people who are ready, and a path to readiness for those who aren&apos;t yet.
       </PageHero>

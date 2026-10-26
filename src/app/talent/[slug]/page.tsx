@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = talentPages.find((p) => p.slug === slug);
-  return page ? { title: `${page.title} — For Talent`, description: page.description } : {};
+  return page ? { title: `${page.title} — For Talent`, description: page.description, alternates: { canonical: `/talent/${page.slug}` } } : {};
 }
 
 // Talent sub-pages from the blueprint sitemap (§5.2 C), e.g. /talent/assessments.

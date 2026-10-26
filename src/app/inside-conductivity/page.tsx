@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import { PageHero, Photo } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Inside Conductivity" };
+export const metadata: Metadata = pageMeta("/inside-conductivity", "Inside Conductivity", "How the Conductivity team works: our culture, values and people.");
 
 const tags = ["Events", "Training", "Office activities", "Meetings", "Seminars", "Workshops", "Team activities", "Client / partner activities"];
 

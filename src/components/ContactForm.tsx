@@ -1,12 +1,19 @@
 "use client";
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import { submitForm } from "@/lib/submitForm";
 import { serviceGroups } from "@/data/site";
 
-// Front-end only. Wire onSubmit to an API route / email service before launch.
+// Sends to /api/inquiry, which routes contact messages to Marketing in the CRM (blueprint §13).
 export default function ContactForm() {
-  const [sent, setSent] = useState(false);
-  const onSubmit = (e: FormEvent) => { e.preventDefault(); setSent(true); };
+  const [sent, setSent] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const r = await submitForm("contact", e.currentTarget);
+    if (r.ok) setSent(r.reference); else setError(r.error);
+  };
 
   // Red panel with square corners. On desktop it has extra left padding because the info cards overlap its left edge.
   const panel = "bg-spark p-6 text-white shadow-card ring-4 ring-white sm:p-10 lg:py-12 lg:pl-16 lg:pr-10";
@@ -16,7 +23,7 @@ export default function ContactForm() {
       <div className={`${panel} text-center`} role="status">
         <CheckCircle2 className="mx-auto" size={44} />
         <h2 className="mt-3 text-2xl font-bold">Thank you — we&apos;ll be in touch.</h2>
-        <p className="mt-1 text-sm text-white/90">Your inquiry has been noted.</p>
+        <p className="mt-1 text-sm text-white/90">Your inquiry has been noted. Reference: <span className="font-semibold">{sent}</span></p>
       </div>
     );
   }
@@ -26,7 +33,7 @@ export default function ContactForm() {
   const input = "input !rounded-none !border-transparent focus:!border-white focus:!ring-white/60";
 
   return (
-    <form onSubmit={onSubmit} className={`${panel} grid gap-4 sm:grid-cols-2`}>
+    <form onSubmit={onSubmit} data-audience="contact" className={`${panel} grid gap-4 sm:grid-cols-2`}>
       <h2 className="text-center text-3xl font-bold tracking-tight sm:col-span-2 sm:text-4xl">Contact Us</h2>
       <div><L id="name">Name</L><input id="name" name="name" required className={input} autoComplete="name" placeholder="Enter your name" /></div>
       <div><L id="email">Email</L><input id="email" name="email" type="email" required className={input} autoComplete="email" placeholder="Enter a valid email address" /></div>
@@ -41,7 +48,12 @@ export default function ContactForm() {
         </select>
       </div>
       <div className="sm:col-span-2"><L id="message">Message</L><textarea id="message" name="message" rows={5} required className={input} /></div>
+      <label className="flex items-start gap-2 text-xs text-white sm:col-span-2">
+        <input type="checkbox" name="consent" required className="mt-0.5" />
+        <span>I agree that Conductivity may use this information to respond to my inquiry, as described in the <Link href="/legal/privacy" className="underline">Privacy Notice</Link>.</span>
+      </label>
       <div className="text-center sm:col-span-2">
+        {error && <p role="alert" className="mb-3 text-sm font-semibold">{error}</p>}
         <button type="submit" className="border-2 border-white px-8 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-white hover:text-spark-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
           Submit
         </button>

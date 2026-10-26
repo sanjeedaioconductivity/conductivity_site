@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import { journey, SANJEEDA_URL, sanjeedaTools } from "@/data/site";
 
-export const metadata: Metadata = { title: "Sanjeeda" };
+export const metadata: Metadata = pageMeta("/sanjeeda", "Sanjeeda", "Sanjeeda, Conductivity's career readiness platform: career assessment, 3D CV, mentoring, counselling and job offer evaluation.");
 
 const toolIcons: Record<string, string> = {
   Khudi: "M9 3h6v4H9zM7 5H5v16h14V5h-2M9 14l2 2 4-4",

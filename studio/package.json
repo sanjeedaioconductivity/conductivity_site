@@ -1,0 +1,25 @@
+{
+  "name": "conductivity-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for editing Conductivity website content (articles, opportunities, events).",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "sanity": "6.18.0",
+    "styled-components": "6.5.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "^5.0.0",
+    "@babel/core": "7.29.7"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

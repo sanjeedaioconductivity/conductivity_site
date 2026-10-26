@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/data/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero, Placeholder, SectionHead } from "@/components/ui";
 import InquiryForm from "@/components/InquiryForm";
+import { AudienceFit } from "@/components/Audiences";
 import { partnerHref, partnerTypes } from "@/data/blueprint";
 
-export const metadata: Metadata = {
-  title: "Partners",
-  description: "Partner with Conductivity to build sustainable, sector-specific talent pipelines.",
-};
+export const metadata: Metadata = pageMeta("/partners", "Partners", "Talent partnerships with universities, training institutions, industry associations, international organizations and mentors to build sustainable talent pipelines in Pakistan.");
 
 // Institutional and partnership experience (blueprint §9).
 export default function PartnersPage() {
@@ -19,18 +18,39 @@ export default function PartnersPage() {
         <div className="mt-5"><Link href="#partner-form" className="btn bg-white text-spark-dark hover:bg-white/90">Build a Talent Partnership <ArrowRight size={16} /></Link></div>
       </PageHero>
 
-      <section className="section">
+      <section className="section bg-paper">
+        <div className="container-x"><AudienceFit id="partners" /></div>
+      </section>
+
+      {/* §9 partner types: four compact cards, each with its own brand colour and its focus areas as tags. */}
+      <section className="section !py-10 sm:!py-12">
         <div className="container-x">
-          <SectionHead eyebrow="Who we partner with" title="Four kinds of partnership" />
-          <div className="grid gap-5 md:grid-cols-2">
-            {partnerTypes.map((p) => (
-              <Link key={p.id} id={p.id} href={partnerHref(p.id)} className="card group flex scroll-mt-24 flex-col !p-8 transition hover:-translate-y-0.5">
-                <p.icon className="text-spark" aria-hidden />
-                <h3 className="mt-4 text-xl font-bold">{p.title}</h3>
-                <p className="mt-2 flex-1 text-ink-soft">{p.text}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-spark-dark group-hover:gap-2">Learn more <ArrowRight size={14} /></span>
-              </Link>
-            ))}
+          <p className="eyebrow">Who we partner with</p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Four kinds of partnership</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {partnerTypes.map((p, i) => {
+              const theme = [
+                { head: "bg-volt", chip: "bg-volt-light text-volt", link: "text-volt" },
+                { head: "bg-spark", chip: "bg-spark-light text-spark-dark", link: "text-spark-dark" },
+                { head: "bg-ink", chip: "bg-paper text-ink", link: "text-ink" },
+                { head: "bg-gradient-to-r from-spark to-volt", chip: "bg-spark-light text-spark-dark", link: "text-spark-dark" },
+              ][i % 4];
+              return (
+                <Link key={p.id} id={p.id} href={partnerHref(p.id)}
+                  className="group flex scroll-mt-24 flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-ink/5 transition hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className={`flex items-center gap-3 px-4 py-3.5 text-white ${theme.head}`}>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15"><p.icon size={18} aria-hidden /></span>
+                    <h3 className="text-sm font-bold leading-snug">{p.title}</h3>
+                  </div>
+                  <ul className="flex flex-1 flex-wrap content-start gap-1.5 p-4">
+                    {p.text.replace(/\.$/, "").split(/, | and /).map((t) => (
+                      <li key={t} className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${theme.chip}`}>{t[0].toUpperCase() + t.slice(1)}</li>
+                    ))}
+                  </ul>
+                  <span className={`inline-flex items-center gap-1 px-4 pb-4 text-xs font-semibold group-hover:gap-2 ${theme.link}`}>Learn more <ArrowRight size={13} /></span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

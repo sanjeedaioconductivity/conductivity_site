@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { CtaBand, Photo, PageHero, SectionHead } from "@/components/ui";
+import Link from "next/link";
+import { pageMeta } from "@/data/seo";
+import { CtaBand, Photo, PageHero, Placeholder, SectionHead } from "@/components/ui";
 import HowWeWork from "@/components/HowWeWork";
 import ValuesList from "@/components/ValuesList";
+import { brand } from "@/data/blueprint";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = pageMeta("/about", "About", "About Conductivity, the Talent Pipeline Company: our philosophy, story, leadership and approach to connecting organizations and talent in Pakistan.");
 
 export default function About() {
   return (
     <>
       <PageHero eyebrow="About Conductivity" title="A connected system for careers and organizations.">
-        Cσnductivity connects people, organizations, opportunities and capabilities so they can produce better outcomes.
+        {brand.positioning}
       </PageHero>
 
       <section id="story" className="section">
@@ -30,6 +33,11 @@ export default function About() {
             <SectionHead eyebrow="Our philosophy" title="Why “Cσnductivity”?" />
             <p className="-mt-4 text-lg leading-relaxed text-ink-soft">
               Conductivity is the ability of a system to carry energy. People bring capability and potential; organizations create environments and requirements; opportunities give direction. Conductivity is what lets these elements connect and work as one.
+            </p>
+            {/* §20: "The Talent Pipeline Company" is the category; "A True Talent Company" carries the philosophy. */}
+            <p className="mt-5 border-l-4 border-spark pl-4 font-semibold text-ink">
+              <span className="text-spark">{brand.philosophy}:</span> talent is more than a CV, and lasting relationships matter more than single hires.{" "}
+              <Link href="/our-model#philosophy" className="text-spark-dark underline">What we believe</Link>
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -56,6 +64,16 @@ export default function About() {
       <HowWeWork id="approach" eyebrow="Our approach" tint />
 
       <ValuesList />
+
+      {/* Impact and client stories (§5.2 G). Stays a placeholder until each story is documented and approved. */}
+      <section id="impact" className="section scroll-mt-16 bg-paper">
+        <div className="container-x">
+          <SectionHead eyebrow="Impact and client stories" title="Results we can stand behind" />
+          <Placeholder title="Verified client and participant stories go here">
+            Add only documented, approved examples, reported against effectiveness, efficiency and sustainability.
+          </Placeholder>
+        </div>
+      </section>
 
       <CtaBand title="Work with Conductivity" text="Whether you are building a career or an organization, we would like to hear from you." primary={{ label: "Contact Us", href: "/contact" }} />
     </>

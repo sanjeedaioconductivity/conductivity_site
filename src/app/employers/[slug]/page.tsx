@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = employerPages.find((p) => p.slug === slug);
-  return page ? { title: `${page.title} — For Employers`, description: page.description } : {};
+  return page ? { title: `${page.title} — For Employers`, description: page.description, alternates: { canonical: `/employers/${page.slug}` } } : {};
 }
 
 // Employer sub-pages from the blueprint sitemap (§5.2 B), e.g. /employers/recruitment.

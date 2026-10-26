@@ -35,6 +35,7 @@ export const moreLinks = [
   { label: "Facilities", href: "/facilities" },
   { label: "Inside Conductivity", href: "/inside-conductivity" },
   { label: "Careers at Conductivity", href: "/careers" },
+  { label: "Trust & Responsible Practices", href: "/trust" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -136,17 +137,19 @@ export const facilities = [
   { title: "Spaces for Hire", text: "Available for corporate sessions, training or events, where applicable." },
 ];
 
-export const insightCategories = ["Career", "HR", "Organizations", "Future of Work"] as const;
+// Insight areas from the sitemap (§5.2 F).
+export const insightCategories = ["Talent Intelligence", "Career Intelligence", "Future of Work", "HR & Organization Development", "Industry Perspectives", "Resources and Guides"] as const;
+export const insightAnchor = (c: string) => c.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-");
 
 export type Insight = { slug: string; title: string; category: (typeof insightCategories)[number]; excerpt: string; date: string };
 
 // Sample entries — replace with real articles.
 export const insights: Insight[] = [
-  { slug: "cv-mistakes", title: "Seven CV mistakes that quietly cost you interviews", category: "Career", excerpt: "Small formatting and framing errors that recruiters notice in seconds.", date: "2026-09-10" },
-  { slug: "comparing-offers", title: "How to compare two job offers beyond the salary", category: "Career", excerpt: "Growth, culture, benefits and risk — a simple framework.", date: "2026-08-28" },
-  { slug: "hr-audit-basics", title: "What an HR audit should actually tell you", category: "HR", excerpt: "From policy gaps to process bottlenecks: what to look for and act on.", date: "2026-08-14" },
-  { slug: "structured-hiring", title: "Structured hiring: fewer mis-hires, faster decisions", category: "HR", excerpt: "Requirement analysis and assessment before the first interview.", date: "2026-07-30" },
-  { slug: "workforce-planning", title: "Workforce planning for growing organizations", category: "Organizations", excerpt: "Align headcount, skills and strategy over the next 12–24 months.", date: "2026-07-12" },
+  { slug: "cv-mistakes", title: "Seven CV mistakes that quietly cost you interviews", category: "Career Intelligence", excerpt: "Small formatting and framing errors that recruiters notice in seconds.", date: "2026-09-10" },
+  { slug: "comparing-offers", title: "How to compare two job offers beyond the salary", category: "Career Intelligence", excerpt: "Growth, culture, benefits and risk — a simple framework.", date: "2026-08-28" },
+  { slug: "hr-audit-basics", title: "What an HR audit should actually tell you", category: "HR & Organization Development", excerpt: "From policy gaps to process bottlenecks: what to look for and act on.", date: "2026-08-14" },
+  { slug: "structured-hiring", title: "Structured hiring: fewer mis-hires, faster decisions", category: "Talent Intelligence", excerpt: "Requirement analysis and assessment before the first interview.", date: "2026-07-30" },
+  { slug: "workforce-planning", title: "Workforce planning for growing organizations", category: "Talent Intelligence", excerpt: "Align headcount, skills and strategy over the next 12–24 months.", date: "2026-07-12" },
   { slug: "skills-that-last", title: "The skills that will outlast the next tool", category: "Future of Work", excerpt: "AI is changing tasks quickly; here is what stays valuable.", date: "2026-06-25" },
 ];
 

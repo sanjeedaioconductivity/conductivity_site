@@ -10,7 +10,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const page = legalPages.find((p) => p.slug === slug);
-  return page ? { title: page.title, robots: { index: false } } : {};
+  return page ? { title: page.title, alternates: { canonical: `/legal/${page.slug}` }, robots: { index: false, follow: true } } : {};
 }
 
 // Utility pages (blueprint §5.2 H). The text must come from a legal review (§16) before launch.

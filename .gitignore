@@ -2,3 +2,10 @@ node_modules
 .next
 next-env.d.ts
 *.tsbuildinfo
+
+# Local secrets (API keys, webhook URLs). Never commit; set them in Vercel instead.
+.env*
+!.env.example
+
+# Sanity Studio build output
+studio/dist
