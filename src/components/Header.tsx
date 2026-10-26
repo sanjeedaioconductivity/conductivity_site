@@ -32,7 +32,7 @@ const subNav: Record<string, { label: string; href: string }[]> = {
 export function Logo({ light = false }: { light?: boolean }) {
   // Full logo with "Consultancy (Pvt.) Ltd." On the dark footer it is flattened to white so it stays legible.
   return (
-    <Image src="/conductivity-logo-v4.png" alt="Conductivity Consultancy (Pvt.) Ltd." width={200} height={100} priority
+    <Image src="/conductivity-logo-v4.png" alt="Conductivity Consultancy (Pvt.) Ltd." width={649} height={128} priority
       className={`w-auto ${light ? "h-16 brightness-0 invert" : "h-12"}`} />
   );
 }
